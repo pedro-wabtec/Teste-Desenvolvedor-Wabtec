@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("teste-dev-wabtec")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d398305e7219d572ffb08f33f2d689faef3adc6")]
 [assembly: System.Reflection.AssemblyProductAttribute("teste-dev-wabtec")]
 [assembly: System.Reflection.AssemblyTitleAttribute("teste-dev-wabtec")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
