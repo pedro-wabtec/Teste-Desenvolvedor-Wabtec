@@ -3,7 +3,7 @@
 Este projeto contém a estrutura base de uma API em C#.
 
 ## Objetivo do teste
-Implementar:
+Implementar endpoints:
 - GET /tasks
 - GET /tasks?isCompleted=true|false
 - POST /tasks
