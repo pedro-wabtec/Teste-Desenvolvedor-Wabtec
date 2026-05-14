@@ -10,13 +10,17 @@ public class TaskService : ITaskService
 
     public IEnumerable<TaskResponse> GetAll(bool? isCompleted)
     {
-        // TODO: implementar GET e filtro por status
-        throw new NotImplementedException();
+        var query = _tasks.AsEnumerable();
+        if (isCompleted.HasValue)
+            query = query.Where(t => t.IsCompleted == isCompleted.Value);
+        return query.Select(TaskResponse.FromEntity).ToList();
     }
 
     public TaskResponse Create(string title)
     {
-        // TODO: implementar POST
-        throw new NotImplementedException();
+        var task = new TaskItem { Id = _nextId++, Title = title, IsCompleted = false };
+        _tasks.Add(task);
+        return TaskResponse.FromEntity(task);
     }
+
 }

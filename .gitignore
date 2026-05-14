@@ -18,3 +18,4 @@ obj/
 # OS
 .DS_Store
 Thumbs.db
+teste-dev-wabtec/obj/*
