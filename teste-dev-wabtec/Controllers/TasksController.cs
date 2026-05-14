@@ -15,15 +15,20 @@ public class TasksController : ControllerBase
         _taskService = taskService;
     }
 
+    [HttpGet]   
+    [ProducesResponseType(typeof(IEnumerable<TaskResponse>), StatusCodes.Status200OK)]
     public IActionResult GetTasks([FromQuery] bool? isCompleted)
     {
-        // TODO: implementar Controller GetTasks
-        throw new NotImplementedException();
+        var tasks = _taskService.GetAll(isCompleted);
+        return Ok(tasks);
     }
 
+    [HttpPost]
+    [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult CreateTask([FromBody] CreateTaskRequest request)
     {
-        // TODO: implementar Controller CreateTask
-        throw new NotImplementedException();
+        var task = _taskService.Create(request.Title);
+        return CreatedAtAction(nameof(GetTasks), new { id = task.Id }, task);
     }
 }
