@@ -11,6 +11,7 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApplicationServices();
 builder.Services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>());
 
 var app = builder.Build();
