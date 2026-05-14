@@ -15,15 +15,49 @@ public class TasksController : ControllerBase
         _taskService = taskService;
     }
 
-    public IActionResult GetTasks([FromQuery] bool? isCompleted)
+    [HttpGet]
+    public ActionResult<IEnumerable<TaskResponse>> GetTasks([FromQuery] bool? isCompleted)
     {
-        // TODO: implementar Controller GetTasks
-        throw new NotImplementedException();
+        try
+        {
+            return StatusCode(200, _taskService.GetAll(isCompleted));
+        }
+        catch (ServiceException ex)
+        {
+            return StatusCode(500, new ProblemDetails
+            {
+                Title = "Internal server error",
+                Detail = ex.Message,
+                Status = 500
+            });
+        }
     }
 
-    public IActionResult CreateTask([FromBody] CreateTaskRequest request)
+    [HttpPost]
+    public ActionResult<TaskResponse> CreateTask([FromBody] CreateTaskRequest request)
     {
-        // TODO: implementar Controller CreateTask
-        throw new NotImplementedException();
+        try
+        {
+            var created = _taskService.Create(request.Title);
+            return StatusCode(201, created);
+        }
+        catch (ArgumentException ex)
+        {
+            return StatusCode(400, new ProblemDetails
+            {
+                Title = "Bad request",
+                Detail = ex.Message,
+                Status = 400
+            });
+        }
+        catch (ServiceException ex)
+        {
+            return StatusCode(500, new ProblemDetails
+            {
+                Title = "Internal server error",
+                Detail = ex.Message,
+                Status = 500
+            });
+        }
     }
 }
