@@ -10,8 +10,21 @@ public class TaskService : ITaskService
 
     public IEnumerable<TaskResponse> GetAll(bool? isCompleted)
     {
-        // TODO: implementar GET e filtro por status
-        throw new NotImplementedException();
+        var queryTask = _tasks.AsQueryable();
+
+        if (isCompleted.HasValue)
+        {
+            queryTask = queryTask.Where(t => t.IsCompleted == isCompleted.Value);
+        }
+
+        var taskResult = queryTask.Select(t => new TaskResponse
+        {
+            Id = t.Id,
+            Title = t.Title,
+            IsCompleted = t.IsCompleted
+        }).ToList();
+
+        return taskResult;
     }
 
     public TaskResponse Create(string title)
