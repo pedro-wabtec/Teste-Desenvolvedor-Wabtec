@@ -15,15 +15,25 @@ public class TasksController : ControllerBase
         _taskService = taskService;
     }
 
+    [HttpGet]
     public IActionResult GetTasks([FromQuery] bool? isCompleted)
     {
-        // TODO: implementar Controller GetTasks
-        throw new NotImplementedException();
+        var tasks = _taskService.GetAll(isCompleted);
+        return Ok(tasks);
     }
 
+    [HttpPost]
+    [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public IActionResult CreateTask([FromBody] CreateTaskRequest request)
     {
-        // TODO: implementar Controller CreateTask
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(request.Title))
+        {
+            return BadRequest("Task title is required.");
+        }
+
+        var createdTaskResponse = _taskService.Create(request.Title);
+
+        return StatusCode(201, createdTaskResponse);
     }
 }
