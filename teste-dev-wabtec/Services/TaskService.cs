@@ -16,7 +16,22 @@ public class TaskService : ITaskService
 
     public TaskResponse Create(string title)
     {
-        // TODO: implementar POST
-        throw new NotImplementedException();
+        var task = new TaskItem
+        {
+            Id = _nextId,
+            Title = title,
+            IsCompleted = true
+        };
+
+        _nextId += 1;
+
+        _tasks.Add(task);
+
+        return new TaskResponse
+        {
+            Id = task.Id,
+            Title = task.Title,
+            IsCompleted = task.IsCompleted
+        };
     }
 }
