@@ -21,9 +21,18 @@ public class TasksController : ControllerBase
         throw new NotImplementedException();
     }
 
+    [HttpPost]
+    [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public IActionResult CreateTask([FromBody] CreateTaskRequest request)
     {
-        // TODO: implementar Controller CreateTask
-        throw new NotImplementedException();
+        if (string.IsNullOrWhiteSpace(request.Title))
+        {
+            return BadRequest("Task title is required.");
+        }
+
+        var createdTaskResponse = _taskService.Create(request.Title);
+
+        return StatusCode(201, createdTaskResponse);
     }
 }
