@@ -15,10 +15,11 @@ public class TasksController : ControllerBase
         _taskService = taskService;
     }
 
+    [HttpGet]
     public IActionResult GetTasks([FromQuery] bool? isCompleted)
     {
-        // TODO: implementar Controller GetTasks
-        throw new NotImplementedException();
+        var tasks = _taskService.GetAll(isCompleted);
+        return Ok(tasks);
     }
 
     [HttpPost]
